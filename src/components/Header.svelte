@@ -1,17 +1,32 @@
 <script lang="ts">
+  import { onMount, tick } from "svelte";
   import Icon from "./Icon.svelte";
 
-  let mode: 'dark' | 'light' = 'light'
+  let mode: 'light' | 'dark' = 'light'
 
   function toggleMode() {
     mode = mode === 'dark' ? 'light' : 'dark'
+    setMode()
+    localStorage.setItem('mode', mode)
+  }
 
+  function setMode() {
     if (mode === 'dark') {
       document.documentElement.classList.add('dark')
     } else {
       document.documentElement.classList.remove('dark')
     }
+
   }
+
+  onMount(async () => {
+    const l = localStorage.getItem('mode')
+
+    if (l) {
+      mode = l as typeof mode;
+      setMode()
+    }
+  })
 </script>
 
 <header>
@@ -20,7 +35,7 @@
       <h1>Where in the world?</h1>
     </a>
 
-    <button class:dark={mode === 'dark'} on:click={toggleMode}>
+    <button class:dark={mode === 'dark'} on:click={toggleMode} aria-hidden="true">
       <Icon name='moon' />
     </button>
   </div>
@@ -29,7 +44,8 @@
 <style lang="scss">
   header {
     background: var(--clr-elements);
-    box-shadow: 3px 0 5px var(--clr-shadow);
+    box-shadow: 3px 0 7px var(--clr-shadow);
+    transition: var(--theme-transition);
   }
 
   h1 {
@@ -39,11 +55,12 @@
   a {
     text-decoration: none;
     color: var(--clr-text);
+    transition: var(--theme-transition);
   }
 
   .container {
-    padding-top: var(--padding);
-    padding-bottom: var(--padding);
+    padding-top: calc(var(--padding)/2);
+    padding-bottom: calc(var(--padding)/2);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -72,16 +89,20 @@
     border: 0;
     background: none;
     color: currentColor;
+    cursor: pointer;
 
-    // FIXME: It should still be highlighted in some way
-    &:active {
+    &:focus:not(:focus-visible) {
       border: 0;
       outline: 0;
     }
 
+    &:target {
+      outline: 1px dashed var(--clr-text);
+    }
+
     :global(.icon) {
-      width: 1.3em;
-      height: 1.3em;
+      width: 1.1em;
+      height: 1.1em;
     }
   }
 </style>

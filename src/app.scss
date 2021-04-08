@@ -1,6 +1,22 @@
 :root {
   --padding: 1.5em;
   --site-width: 90rem;
+  --fw-thin: 300;
+  --fw-normal: 600;
+  --fw-bold: 800;
+
+  --fs-header: 1.5rem;
+  --fs-normal: 1.1rem;
+  --fs-items: 1rem;
+
+  --line-height: 1.5;
+
+  --theme-transition: background 350ms ease-in, color 350ms ease-in,
+    box-shadow 350ms ease-in;
+
+  @media screen and (min-width: 767px) {
+    --fs-header: 2rem;
+  }
 
   --clr-elements: hsl(0, 0%, 100%);
   --clr-background: hsl(0, 0%, 96%);
@@ -24,6 +40,14 @@
 body {
   background: var(--clr-background);
   color: var(--clr-text);
+  font-size: var(--fs-normal);
+  line-height: var(--line-height);
+  transition: var(--theme-transition);
+}
+
+h1 {
+  font-size: var(--fs-header);
+  font-weight: var(--fw-bold);
 }
 
 img {
