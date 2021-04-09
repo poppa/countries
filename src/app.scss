@@ -1,11 +1,15 @@
+@use 'static' as *;
+
 :root {
   --padding: 1.5em;
   --site-width: 90rem;
+
   --fw-thin: 300;
   --fw-normal: 600;
   --fw-bold: 800;
 
-  --fs-header: 1.5rem;
+  --fs-header: 1.4rem;
+  --fs-title: 1.6rem;
   --fs-normal: 1.1rem;
   --fs-items: 1rem;
 
@@ -16,7 +20,7 @@
   --theme-transition: background 350ms ease-in, color 350ms ease-in,
     box-shadow 350ms ease-in;
 
-  @media screen and (min-width: 767px) {
+  @include tablet {
     --fs-header: 2rem;
   }
 
@@ -51,6 +55,11 @@ h1 {
   font-weight: var(--fw-bold);
 }
 
+h2 {
+  font-size: var(--fs-title);
+  font-weight: var(--fw-bold);
+}
+
 img {
   max-width: 100%;
 }
@@ -66,7 +75,12 @@ img {
 .container {
   position: relative;
   max-width: var(--site-width);
-  padding-left: calc(var(--padding) * 2);
-  padding-right: calc(var(--padding) * 2);
+  padding-left: var(--padding);
+  padding-right: var(--padding);
   margin: 0 auto;
+
+  @include grid {
+    padding-left: calc(var(--padding) * 2);
+    padding-right: calc(var(--padding) * 2);
+  }
 }

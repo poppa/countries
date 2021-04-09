@@ -38,9 +38,15 @@
 </div>
 
 <style lang="scss">
+  @use '../static' as *;
+
   .countries {
     display: grid;
-    gap: calc(var(--padding) * 2);
+    gap: var(--padding);
     grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+
+    @include grid {
+      gap: calc(var(--padding) * 2);
+    }
   }
 </style>

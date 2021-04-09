@@ -61,10 +61,9 @@
 
   .image {
     position: relative;
-    height: 15em;
     overflow: hidden;
-    height: 13vw;
-    max-height: 305px;
+    height: 10vw;
+    max-height: 260px;
     min-height: 180px;
 
     img {

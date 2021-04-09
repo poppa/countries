@@ -1,0 +1,14 @@
+$bp-tablet: 767px;
+$bp-grid: 500px;
+
+@mixin tablet() {
+  @media screen and (min-width: $bp-tablet) {
+    @content;
+  }
+}
+
+@mixin grid() {
+  @media screen and (min-width: $bp-grid) {
+    @content;
+  }
+}

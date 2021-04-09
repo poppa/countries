@@ -1,9 +1,9 @@
-import { getCountries } from '../lib/server'
 import type { RequestHandler } from '@sveltejs/kit'
+import { getCountry } from '../../lib/server'
 
-export const get: RequestHandler = async () => {
+export const get: RequestHandler = async ({ params }) => {
   try {
-    return { body: await getCountries() }
+    return { body: await getCountry(params.country) }
   } catch (err: unknown) {
     console.error('Backend fetch error:', err)
     return {
