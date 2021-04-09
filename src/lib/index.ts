@@ -16,9 +16,25 @@ const fields = [
   'currencies',
   'languages',
   'borders',
-  'alpha2Code'
+  'alpha3Code'
 ]
 
 export function getRestApiUrl(): string {
   return `${baseUrl}?fields=${fields.join(';')}`
+}
+
+const numberFormatter = new Intl.NumberFormat()
+
+export function formatNumber(num: number): string {
+  return numberFormatter.format(num).toString()
+}
+
+export function joinNice(arr: string[], separator = 'and'): string {
+  if (arr.length > 1) {
+    const copy = [...arr]
+    const last = copy.pop()
+    return `${copy.join(', ')} ${separator} ${last}`
+  } else {
+    return arr[0] || ''
+  }
 }

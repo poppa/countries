@@ -1,5 +1,12 @@
+$bp-widescreen: 1024px;
 $bp-tablet: 767px;
 $bp-grid: 500px;
+
+@mixin widescreen() {
+  @media screen and (min-width: $bp-widescreen) {
+    @content;
+  }
+}
 
 @mixin tablet() {
   @media screen and (min-width: $bp-tablet) {

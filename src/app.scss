@@ -12,6 +12,7 @@
   --fs-title: 1.6rem;
   --fs-normal: 1.1rem;
   --fs-items: 1rem;
+  --fs-small: 0.9rem;
 
   --br: 0.2em;
 
@@ -82,5 +83,31 @@ img {
   @include grid {
     padding-left: calc(var(--padding) * 2);
     padding-right: calc(var(--padding) * 2);
+  }
+}
+
+.btn {
+  padding: calc(var(--padding) / 3) var(--padding);
+  background: var(--clr-elements);
+  border-radius: var(--br);
+  box-shadow: 0 0 5px var(--clr-shadow);
+  color: var(--clr-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+
+  &--wide {
+    min-width: 8em;
+  }
+
+  &--sm {
+    padding: calc(var(--padding) / 4) var(--padding);
+    font-size: var(--fs-small);
+  }
+
+  .icon {
+    margin-right: 0.3em;
+    text-decoration: none;
   }
 }

@@ -16,5 +16,21 @@ export async function getCountries(): Promise<Country[]> {
 
 export async function getCountry(code: string): Promise<Maybe<Country>> {
   const c = await getCountries()
-  return c.find((c) => c.alpha2Code.toLowerCase() === code.toLowerCase())
+  const country = c.find(
+    (c) => c.alpha3Code.toLowerCase() === code.toLowerCase()
+  )
+
+  // We need this to prevent circular references when resolving
+  // bordering countries
+  const countryCopy = country && { ...country }
+
+  if (countryCopy) {
+    const b = countryCopy.borders
+      .map((code) => c.find((cc) => cc.alpha3Code === code))
+      .filter((v) => typeof v !== 'undefined')
+
+    countryCopy.bordersResolved = b
+  }
+
+  return countryCopy
 }

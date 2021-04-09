@@ -10,7 +10,8 @@ export interface Country {
   population: number
   borders: string[]
   nativeName: string
-  alpha2Code: string
+  alpha3Code: string
+  bordersResolved: Country[]
 }
 
 interface Language {

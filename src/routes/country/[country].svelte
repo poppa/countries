@@ -3,14 +3,16 @@
 
   export const load: Load = async ({ fetch, page }) => {
     try {
-      const res = await fetch(`./${page.params.country}.json`)
-      if (!res.ok) {
+      const query = await fetch(`./${page.params.country}.json`)
+
+      if (!query.ok) {
         return {
           status: 404
         }
       }
 
-      const country = await res.json()
+      const country = await query.json()
+
       if (!country) {
         return {
           status: 404
@@ -29,22 +31,28 @@
 
 <script lang="ts">
   import type { Country } from '../../lib'
-  import { PageTitle } from '../../lib'
-  // import Icon from '../../components/Icon.svelte'
+  import { PageTitle, formatNumber, joinNice } from '../../lib'
+  import Icon from '../../components/Icon.svelte'
   import Label from '../../components/Label.svelte'
+  import BorderButton from '../../components/BorderButton.svelte'
 
   export let country: Country
+
+  function handleBack(e: Event): void {
+    window.history.go(-1)
+    e.preventDefault()
+  }
 </script>
 
 <svelte:head>
   <title>{country.name} - {PageTitle}</title>
 </svelte:head>
 
-<!-- <div class="header">
-    <a href="/" class="btn btn--wide">
-      <Icon name="arrow-back" /> Back
-    </a>
-  </div> -->
+<div class="header">
+  <a href="/" class="btn btn--wide" on:click={handleBack}>
+    <Icon name="arrow-back" /> Back
+  </a>
+</div>
 
 <section>
   <img
@@ -58,25 +66,32 @@
     <h2>{country.name}</h2>
     <div class="column">
       <Label label="Native name" text={country.nativeName} />
-      <Label label="Population" text={country.population.toString()} />
+      <Label label="Population" text={formatNumber(country.population)} />
       <Label label="Region" text={country.region} />
-      <Label label="Sub-region" text={country.subregion} />
-      <Label label="Capital" text={country.capital} />
+      <Label label="Sub-region" text={country.subregion} showIfNovalue={true} />
+      <Label label="Capital" text={country.capital} showIfNovalue={true} />
     </div>
 
     <div class="column">
-      <Label
-        label="Top-level domain"
-        text={country.topLevelDomain.join(', ')}
-      />
+      <Label label="Top-level domain" text={joinNice(country.topLevelDomain)} />
       <Label
         label="Currencies"
-        text={country.currencies.map((c) => c.name).join(', ')}
+        text={joinNice(country.currencies.map((c) => c.name))}
       />
       <Label
         label="Languages"
-        text={country.languages.map((l) => l.name).join(', ')}
+        text={joinNice(country.languages.map((l) => l.name))}
       />
+    </div>
+
+    <div class="bordering-countries">
+      <Label label="Bordering countries">
+        {#each country.bordersResolved as b}
+          {' '}<BorderButton country={b} />
+        {:else}
+          <span>None</span>
+        {/each}
+      </Label>
     </div>
   </div>
 </section>
@@ -84,25 +99,8 @@
 <style lang="scss">
   @use '../../static' as *;
 
-  .btn {
-    padding: calc(var(--padding) / 3) var(--padding);
-    background: var(--clr-elements);
-    border-radius: var(--br);
-    box-shadow: 0 0 5px var(--clr-shadow);
-    color: var(--clr-text);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-
-    &--wide {
-      min-width: 8em;
-    }
-
-    :global(.icon) {
-      margin-right: 0.3em;
-      text-decoration: none;
-    }
+  .header {
+    margin-bottom: calc(var(--padding) * 2);
   }
 
   section {
@@ -125,33 +123,64 @@
     box-shadow: 0 0 5px var(--clr-shadow);
   }
 
+  .bordering-countries {
+    margin-top: var(--padding);
+    // display: grid;
+    // grid-template-columns: repeat(auto-fill, max-content);
+    // gap: 0.5em;
+    // align-items: center;
+    // flex-wrap: wrap;
+    // max-width: 100%;
+    :global(.btn) {
+      margin-bottom: 0.5em;
+      margin-right: 0.5em;
+    }
+  }
+
+  // .button-list {
+  //   :global(.btn) {
+  //     margin-left: 0.2em;
+  //   }
+  // }
+
   @include tablet {
     section {
       flex-direction: row;
-      align-items: flex-start;
+      align-items: center;
     }
 
     img {
       width: 40%;
       height: auto;
-      margin-right: calc(var(--padding) * 4);
+      margin-right: calc(var(--padding) * 2);
     }
 
     .info {
       width: 100%;
       margin-top: 0;
       display: grid;
-      gap: calc(var(--padding) * 1);
-      grid-template-columns: 1fr 1fr;
+      gap: calc(--padding);
+      column-gap: calc(var(--padding) * 2);
+      grid-template-columns: minmax(min-content, max-content);
 
       h2 {
         grid-column: 1/3;
+        margin-bottom: calc(var(--padding) / 2);
       }
     }
 
-    h2,
     .column {
       margin: 0;
+    }
+
+    .bordering-countries {
+      grid-column: 1/3;
+    }
+  }
+
+  @include widescreen {
+    img {
+      margin-right: calc(var(--padding) * 3);
     }
   }
 </style>

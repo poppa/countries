@@ -6,9 +6,11 @@
 
     try {
       if (res.ok) {
+        const countries = await res.json()
+
         return {
           props: {
-            countries: await res.json()
+            countries
           }
         }
       } else {
@@ -25,14 +27,19 @@
 
 <script lang="ts">
   import type { Load } from '@sveltejs/kit'
+  import type { Country } from '../lib'
+  import { PageTitle } from '../lib'
   import CountryItem from '../components/CountryItem.svelte'
 
-  import type { Country } from '../lib'
   export let countries: Country[]
 </script>
 
+<svelte:head>
+  <title>{PageTitle}</title>
+</svelte:head>
+
 <div class="countries">
-  {#each countries as country (country.alpha2Code)}
+  {#each countries as country (country.alpha3Code)}
     <CountryItem {country} />
   {/each}
 </div>

@@ -1,10 +1,12 @@
 <script lang="ts">
   import type { Country } from '../lib'
+  import { formatNumber } from '../lib'
+  import Label from './Label.svelte'
 
   export let country: Country
 </script>
 
-<a href={`/country/${country.alpha2Code.toLowerCase()}`} class="country">
+<a href={`/country/${country.alpha3Code.toLowerCase()}`} class="country">
   <div class="image">
     <img
       src={country.flag}
@@ -17,16 +19,13 @@
   <div class="contents">
     <h2>{country.name}</h2>
     <p>
-      <span class="label">Population:</span>
-      {country.population}
+      <Label label="Population" text={formatNumber(country.population)} />
     </p>
     <p>
-      <span class="label">Region:</span>
-      {country.region}
+      <Label label="Region" text={country.region} showIfNovalue={true} />
     </p>
     <p>
-      <span class="label">Capital:</span>
-      {country.capital}
+      <Label label="Capital" text={country.capital} showIfNovalue={true} />
     </p>
   </div>
 </a>
