@@ -26,6 +26,7 @@
   }
 
   --clr-elements: hsl(0, 0%, 100%);
+  --clr-elements-alt: hsl(0, 0%, 98%);
   --clr-background: hsl(0, 0%, 96%);
   --clr-shadow: hsl(0, 0%, 80%);
   --clr-text: hsl(200, 15%, 8%);
@@ -33,6 +34,7 @@
 
   &.dark {
     --clr-elements: hsl(209, 23%, 22%);
+    --clr-elements-alt: hsl(209, 23%, 25%);
     --clr-background: hsl(207, 26%, 17%);
     --clr-shadow: hsl(207, 26%, 10%);
     --clr-text: hsl(0, 0%, 100%);
@@ -81,6 +83,7 @@ img {
   margin: 0 auto;
 
   @include grid {
+    padding-top: var(--padding);
     padding-left: calc(var(--padding) * 2);
     padding-right: calc(var(--padding) * 2);
   }
@@ -96,6 +99,11 @@ img {
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  transition: background-color 250ms ease-in;
+
+  &:hover {
+    background: var(--clr-elements-alt);
+  }
 
   &--wide {
     min-width: 8em;

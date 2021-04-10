@@ -7,8 +7,6 @@ export async function getCountries(): Promise<Country[]> {
   if (!cache) {
     const data = await fetch(getRestApiUrl())
     cache = await data.json()
-  } else {
-    console.log(`Got cached countries`)
   }
 
   return cache

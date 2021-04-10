@@ -11,6 +11,10 @@ export interface Country {
   borders: string[]
   nativeName: string
   alpha3Code: string
+  /**
+   * NOTE: This property only exist when a single country is fetched, i.e it's
+   * only available on in the country route.
+   */
   bordersResolved: Country[]
 }
 

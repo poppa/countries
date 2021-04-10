@@ -3,7 +3,13 @@ import { getCountry } from '../../lib/server'
 
 export const get: RequestHandler = async ({ params }) => {
   try {
-    return { body: await getCountry(params.country) }
+    const country = await getCountry(params.country)
+
+    if (country) {
+      return { body: country }
+    }
+
+    return { status: 404 }
   } catch (err: unknown) {
     console.error('Backend fetch error:', err)
     return {

@@ -4,13 +4,6 @@
   export const load: Load = async ({ fetch, page }) => {
     try {
       const query = await fetch(`./${page.params.country}.json`)
-
-      if (!query.ok) {
-        return {
-          status: 404
-        }
-      }
-
       const country = await query.json()
 
       if (!country) {
@@ -84,10 +77,10 @@
       />
     </div>
 
-    <div class="bordering-countries">
-      <Label label="Bordering countries">
+    <div class="border-countries">
+      <Label label="Border countries">
         {#each country.bordersResolved as b}
-          {' '}<BorderButton country={b} />
+          <BorderButton country={b} />
         {:else}
           <span>None</span>
         {/each}
@@ -123,25 +116,14 @@
     box-shadow: 0 0 5px var(--clr-shadow);
   }
 
-  .bordering-countries {
+  .border-countries {
     margin-top: var(--padding);
-    // display: grid;
-    // grid-template-columns: repeat(auto-fill, max-content);
-    // gap: 0.5em;
-    // align-items: center;
-    // flex-wrap: wrap;
-    // max-width: 100%;
+
     :global(.btn) {
       margin-bottom: 0.5em;
       margin-right: 0.5em;
     }
   }
-
-  // .button-list {
-  //   :global(.btn) {
-  //     margin-left: 0.2em;
-  //   }
-  // }
 
   @include tablet {
     section {
@@ -173,7 +155,7 @@
       margin: 0;
     }
 
-    .bordering-countries {
+    .border-countries {
       grid-column: 1/3;
     }
   }

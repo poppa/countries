@@ -1,6 +1,6 @@
 <script lang="ts">
   export let label: string
-  export let text: string
+  export let text: string = ''
   export let showIfNovalue = false
   export let defaultValue = 'No value'
 
