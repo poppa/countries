@@ -1,3 +1,5 @@
+import type { Country } from './interfaces/country'
+
 export * from './interfaces/country'
 export * from './interfaces/types'
 
@@ -37,4 +39,31 @@ export function joinNice(arr: string[], separator = 'and'): string {
   } else {
     return arr[0] || ''
   }
+}
+
+export interface Filter {
+  search?: string
+  region?: string
+}
+
+export function filterCountries(
+  countries: Country[],
+  { region, search }: Filter
+): Country[] {
+  let copy = [...countries]
+  console.log(`Input length:`, copy.length)
+
+  if (region) {
+    copy = copy.filter((c) => c.region === region)
+  }
+
+  if (search) {
+    console.log(`Search:`, search)
+    const re = new RegExp(search, 'i')
+    copy = copy.filter((c) => c.name.search(re) > -1)
+  }
+
+  console.log(`selectedCountries:`, copy.length)
+
+  return copy
 }

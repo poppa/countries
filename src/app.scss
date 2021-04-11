@@ -99,10 +99,11 @@ img {
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  transition: background-color 250ms ease-in;
+  transition: background-color 250ms ease-in, color 250ms ease-in;
 
   &:hover {
     background: var(--clr-elements-alt);
+    color: var(--clr-input);
   }
 
   &--wide {
@@ -118,4 +119,15 @@ img {
     margin-right: 0.3em;
     text-decoration: none;
   }
+}
+
+.input {
+  border: 1px solid transparent;
+  background: var(--clr-elements);
+  border-radius: var(--br);
+  padding: calc(var(--padding) / 2) var(--padding);
+  box-shadow: 0 0 5px var(--clr-shadow);
+  color: var(--clr-input);
+  font-size: inherit;
+  line-height: 1;
 }
