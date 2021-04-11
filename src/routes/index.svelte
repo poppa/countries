@@ -107,6 +107,8 @@
       placeholder="Search for a country..."
       class="input"
       bind:value={$searchTerm}
+      name="search"
+      aria-label="search"
     />
   </div>
   <Select name="region" options={regions} on:changed={onSelectChanged} />

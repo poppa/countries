@@ -49,7 +49,7 @@
 </script>
 
 <div class="select-box">
-  <select class="input" on:input={dispatcher} {name}>
+  <select class="input" on:input={dispatcher} {name} aria-label={name}>
     {#each options as option (option)}
       <option
         value={optional(option.value, option.name)}
