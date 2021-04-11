@@ -18,15 +18,9 @@
   </div>
   <div class="contents">
     <h2>{country.name}</h2>
-    <p>
-      <Label label="Population" text={formatNumber(country.population)} />
-    </p>
-    <p>
-      <Label label="Region" text={country.region} showIfNovalue={true} />
-    </p>
-    <p>
-      <Label label="Capital" text={country.capital} showIfNovalue={true} />
-    </p>
+    <Label label="Population" text={formatNumber(country.population)} />
+    <Label label="Region" text={country.region} showIfNovalue={true} />
+    <Label label="Capital" text={country.capital} showIfNovalue={true} />
   </div>
 </a>
 
@@ -81,7 +75,7 @@
     padding: var(--padding);
     font-size: var(--fs-items);
 
-    p + p {
+    :global(div + div) {
       margin-top: 0.3em;
     }
   }

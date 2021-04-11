@@ -16,9 +16,13 @@
   }
 </script>
 
-<div class="icon">{@html iconMap[name]}</div>
+<span class="icon">{@html iconMap[name]}</span>
 
 <style lang="scss">
+  span {
+    display: block;
+  }
+
   .icon {
     position: relative;
     width: 1em;
