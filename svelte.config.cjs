@@ -1,6 +1,6 @@
-const sveltePreprocess = require('svelte-preprocess');
-const node = require('@sveltejs/adapter-node');
-const pkg = require('./package.json');
+const sveltePreprocess = require('svelte-preprocess')
+const node = require('@sveltejs/adapter-node')
+const pkg = require('./package.json')
 
 /** @type {import('@sveltejs/kit').Config} */
 module.exports = {
@@ -16,10 +16,12 @@ module.exports = {
     // hydrate the <div id="svelte"> element in src/app.html
     target: '#country-app',
 
+    amp: false,
+
     vite: {
       ssr: {
         noExternal: Object.keys(pkg.dependencies || {})
       }
     }
   }
-};
+}

@@ -81,5 +81,6 @@
   select {
     appearance: none;
     padding-right: calc(var(--padding) * 2.5);
+    width: 100%;
   }
 </style>
