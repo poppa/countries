@@ -38,7 +38,11 @@
   import { searchTerm, selectedRegion } from '$lib/state'
   import { onDestroy } from 'svelte'
 
+  // Component props
+
   export let countries: Country[]
+
+  // Internals
 
   let countryList = [...countries]
   let regions = regionsList()

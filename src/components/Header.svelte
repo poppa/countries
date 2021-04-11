@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { onMount, tick } from "svelte";
-  import Icon from "./Icon.svelte";
+  import { PageTitle } from '../lib'
+  import { onMount } from 'svelte'
+  import Icon from './Icon.svelte'
 
   let mode: 'light' | 'dark' = 'light'
 
@@ -16,14 +17,13 @@
     } else {
       document.documentElement.classList.remove('dark')
     }
-
   }
 
   onMount(async () => {
     const l = localStorage.getItem('mode')
 
     if (l) {
-      mode = l as typeof mode;
+      mode = l as typeof mode
       setMode()
     }
   })
@@ -32,11 +32,15 @@
 <header>
   <div class="container">
     <a href="/">
-      <h1>Where in the world?</h1>
+      <h1>{PageTitle}</h1>
     </a>
 
-    <button class:dark={mode === 'dark'} on:click={toggleMode} aria-hidden="true">
-      <Icon name='moon' />
+    <button
+      class:dark={mode === 'dark'}
+      on:click={toggleMode}
+      aria-hidden="true"
+    >
+      <Icon name="moon" />
     </button>
   </div>
 </header>
@@ -59,8 +63,8 @@
   }
 
   .container {
-    padding-top: calc(var(--padding)/2);
-    padding-bottom: calc(var(--padding)/2);
+    padding-top: calc(var(--padding) / 2);
+    padding-bottom: calc(var(--padding) / 2);
     display: flex;
     justify-content: space-between;
     align-items: center;
