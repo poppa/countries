@@ -1,3 +1,8 @@
+<!--
+  Optimization potentials:
+
+    - Don't render countries below the fold (with some given offset)
+ -->
 <script context="module" lang="ts">
   // SSR preload
   export const load: Load = async ({ fetch }) => {
@@ -30,6 +35,7 @@
   import type { Country } from '../lib'
   import { PageTitle, filterCountries } from '../lib'
   import CountryItem from '../components/CountryItem.svelte'
+  import Icon from '../components/Icon.svelte'
   import Select, {
     setSelected,
     unselectSelected
@@ -54,6 +60,8 @@
     })
   })
 
+  // Pull out the unique regions from the countries, sort them and
+  // turn them into a list of Option types
   function regionsList(): Option[] {
     const reg: string[] = []
 
@@ -90,12 +98,17 @@
 </svelte:head>
 
 <div class="header">
-  <input
-    type="search"
-    placeholder="Search for a country..."
-    class="input"
-    bind:value={$searchTerm}
-  />
+  <div class="search-field">
+    <span>
+      <Icon name="magnifier" />
+    </span>
+    <input
+      type="search"
+      placeholder="Search for a country..."
+      class="input"
+      bind:value={$searchTerm}
+    />
+  </div>
   <Select name="region" options={regions} on:changed={onSelectChanged} />
 </div>
 
@@ -112,6 +125,8 @@
 
   .header {
     margin-bottom: var(--padding);
+    display: flex;
+    flex-direction: column;
   }
 
   .countries {
@@ -120,21 +135,43 @@
     grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
   }
 
+  .search-field {
+    position: relative;
+    margin-bottom: 0.5em;
+
+    span {
+      pointer-events: none;
+      color: var(--clr-input);
+      position: absolute;
+      z-index: 1;
+      left: calc(var(--padding) / 2);
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4em;
+    }
+  }
+
   input[type='search'] {
     width: 100%;
+    padding-left: 3em;
   }
 
   @include grid {
     .header {
       margin-bottom: calc(var(--padding) * 2);
+      flex-direction: row;
+      justify-content: space-between;
     }
 
+    .search-field {
+      width: 400px;
+      margin-bottom: 0;
+    }
+  }
+
+  @include tablet {
     .countries {
       gap: calc(var(--padding) * 2);
-    }
-
-    input[type='search'] {
-      max-width: 350px;
     }
   }
 </style>

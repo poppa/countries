@@ -25,6 +25,7 @@
 
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
+  import Icon from './Icon.svelte'
 
   export let name: string
   export let options: Option[]
@@ -47,21 +48,38 @@
   }
 </script>
 
-<select class="input" on:input={dispatcher} {name}>
-  {#each options as option (option)}
-    <option
-      value={optional(option.value, option.name)}
-      selected={optional(option.selected, false)}>{option.name}</option
-    >
-  {/each}
-</select>
+<div class="select-box">
+  <select class="input" on:input={dispatcher} {name}>
+    {#each options as option (option)}
+      <option
+        value={optional(option.value, option.name)}
+        selected={optional(option.selected, false)}>{option.name}</option
+      >
+    {/each}
+  </select>
+  <span>
+    <Icon name="arrow-down" />
+  </span>
+</div>
 
 <style lang="scss">
-  select {
-    appearance: none;
+  .select-box {
+    position: relative;
+    display: flex;
+
+    span {
+      pointer-events: none;
+      position: absolute;
+      right: var(--padding);
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--clr-input);
+      font-size: 0.9em;
+    }
   }
 
-  option {
-    color: var(--clr-input);
+  select {
+    appearance: none;
+    padding-right: calc(var(--padding) * 2.5);
   }
 </style>

@@ -1,14 +1,16 @@
 <script lang="ts">
   import iconArrowBack from '../icons/arrow-back'
+  import iconArrowDown from '../icons/arrow-down'
   import iconMagnifier from '../icons/magnifier'
   import iconMoon from '../icons/moon'
 
-  type IconName = 'arrow-back' | 'magnifier' | 'moon'
+  type IconName = 'arrow-back' | 'arrow-down' | 'magnifier' | 'moon'
 
   export let name: IconName
 
   const iconMap: Record<IconName, string> = {
-    "arrow-back": iconArrowBack,
+    'arrow-back': iconArrowBack,
+    'arrow-down': iconArrowDown,
     magnifier: iconMagnifier,
     moon: iconMoon
   }

@@ -51,19 +51,15 @@ export function filterCountries(
   { region, search }: Filter
 ): Country[] {
   let copy = [...countries]
-  console.log(`Input length:`, copy.length)
 
   if (region) {
     copy = copy.filter((c) => c.region === region)
   }
 
   if (search) {
-    console.log(`Search:`, search)
     const re = new RegExp(search, 'i')
     copy = copy.filter((c) => c.name.search(re) > -1)
   }
-
-  console.log(`selectedCountries:`, copy.length)
 
   return copy
 }

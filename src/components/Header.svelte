@@ -59,7 +59,13 @@
   a {
     text-decoration: none;
     color: var(--clr-text);
-    transition: var(--theme-transition);
+    border: 1px solid transparent;
+    transition: var(--theme-transition), border-color 250ms ease-in;
+
+    &:focus:not(:focus-visible) {
+      border-color: transparent;
+      outline: 0;
+    }
   }
 
   .container {
@@ -94,14 +100,11 @@
     background: none;
     color: currentColor;
     cursor: pointer;
+    border: 1px solid transparent;
 
     &:focus:not(:focus-visible) {
-      border: 0;
+      border-color: transparent;
       outline: 0;
-    }
-
-    &:target {
-      outline: 1px dashed var(--clr-text);
     }
 
     :global(.icon) {

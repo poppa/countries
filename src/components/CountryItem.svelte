@@ -34,6 +34,7 @@
   a {
     color: var(--clr-text);
     text-decoration: none;
+    border: 1px solid transparent;
   }
 
   .country {
@@ -45,10 +46,15 @@
     background-color: var(--clr-elements);
     box-shadow: 0 0 10px -5px var(--clr-shadow);
     transform: scale(1);
-    transition: transform 450ms cubic-bezier(0.69, -0.28, 0.27, 1.55);
+    transition: transform 450ms cubic-bezier(0.69, -0.28, 0.27, 1.55),
+      border-color 250ms ease-in;
 
     &:hover {
       transform: scale(1.1);
+    }
+
+    &:focus {
+      border-color: inherit;
     }
 
     h2 {

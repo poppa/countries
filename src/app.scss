@@ -82,7 +82,7 @@ img {
   padding-right: var(--padding);
   margin: 0 auto;
 
-  @include grid {
+  @include tablet {
     padding-top: var(--padding);
     padding-left: calc(var(--padding) * 2);
     padding-right: calc(var(--padding) * 2);
@@ -93,13 +93,15 @@ img {
   padding: calc(var(--padding) / 3) var(--padding);
   background: var(--clr-elements);
   border-radius: var(--br);
+  border: 1px solid transparent;
   box-shadow: 0 0 5px var(--clr-shadow);
   color: var(--clr-text);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  transition: background-color 250ms ease-in, color 250ms ease-in;
+  transition: background-color 250ms ease-in, color 250ms ease-in,
+    border-color 250ms ease-in;
 
   &:hover {
     background: var(--clr-elements-alt);
@@ -121,6 +123,18 @@ img {
   }
 }
 
+a,
+input,
+select,
+button {
+  transition: border-color 250ms ease-in;
+
+  &:focus {
+    outline: none;
+    border-color: var(--clr-text);
+  }
+}
+
 .input {
   border: 1px solid transparent;
   background: var(--clr-elements);
@@ -130,4 +144,8 @@ img {
   color: var(--clr-input);
   font-size: inherit;
   line-height: 1;
+}
+
+option {
+  color: var(--clr-input);
 }
