@@ -3,28 +3,39 @@
   import { onMount } from 'svelte'
   import Icon from './Icon.svelte'
 
-  let mode: 'light' | 'dark' = 'light'
+  let mode: 'light' | 'dark'
 
   function toggleMode() {
+    console.log(`Toggle mode`)
     mode = mode === 'dark' ? 'light' : 'dark'
-    setMode()
+    setMode(mode)
     localStorage.setItem('mode', mode)
   }
 
-  function setMode() {
-    if (mode === 'dark') {
+  function setMode(m: typeof mode) {
+    if (m === 'dark') {
+      document.documentElement.classList.remove('light')
       document.documentElement.classList.add('dark')
-    } else {
+    } else if (m === 'light') {
+      console.log(`Add light class`)
       document.documentElement.classList.remove('dark')
+      document.documentElement.classList.add('light')
     }
+
+    mode = m
   }
 
   onMount(async () => {
     const l = localStorage.getItem('mode')
 
     if (l) {
-      mode = l as typeof mode
-      setMode()
+      setMode(l as typeof mode)
+    } else {
+      const v = getComputedStyle(document.documentElement)
+        .getPropertyValue('--mode')
+        .trim()
+
+      setMode(v as typeof mode)
     }
   })
 </script>
@@ -37,6 +48,7 @@
 
     <button
       class:dark={mode === 'dark'}
+      class:light={mode === 'light'}
       on:click={toggleMode}
       aria-hidden="true"
     >
